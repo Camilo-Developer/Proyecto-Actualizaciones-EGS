@@ -12,9 +12,10 @@ class DasboardController extends Controller
     {
         try {
             if(Auth::user()->can('admin.dashboard')){
+                $user = Auth::user();
                 return response()->json([
                     'status' => true,
-                    'message' => 'El usuario Esta en el dashboard',
+                    'data' => $user,
                 ], 200);
             }
         } catch (\Throwable $th) {

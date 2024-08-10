@@ -44,6 +44,18 @@ class UptproorganizationsController extends Controller implements HasMiddleware
         try{
             $uptproorganizations = Uptproorganization::create($request->all());
 
+            $projects = $request->input('proyects');
+            $projectData = [];
+
+            foreach ($projects as $projectId) {
+                $projectData[$projectId] = [
+                    'created_at' => now(),
+                    'updated_at' => now()
+                ];
+            }
+
+            $uptproorganizations->proyects()->sync($projectData);
+
             return response()->json([
                 'status' => true,
                 'message' =>'La actualizacion del projecto de la organizacion se creo correctamente',

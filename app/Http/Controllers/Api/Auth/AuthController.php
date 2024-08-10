@@ -17,13 +17,13 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         try {
-            //Validamos los inputs
+            // Validamos los inputs
             $validateUser = Validator::make($request->all(), [
                 'loginname' => 'required',
                 'password' => 'required',
             ]);
-
-            //Miramos si no hay un error general
+    
+            // Miramos si no hay un error general
             if ($validateUser->fails()) {
                 return response()->json([
                     'status' => false,
@@ -31,25 +31,39 @@ class AuthController extends Controller
                     'errors' => $validateUser->errors()
                 ], 401);
             }
-
-            //Nos ayuda a identificar el Email y el loginname
+    
+            // Nos ayuda a identificar el Email y el loginname
             $loginField = filter_var($request->loginname, FILTER_VALIDATE_EMAIL) ? 'email' : 'loginname';
-
-            if(!Auth::attempt([$loginField => $request->loginname, 'password' => $request->password])){
+    
+            if (!Auth::attempt([$loginField => $request->loginname, 'password' => $request->password])) {
                 return response()->json([
                     'status' => false,
                     'message' => 'Email/Usuario y contraseña no coinciden con nuestros registros',
-                ],401);
+                ], 401);
             }
-
+    
             $user = Auth::user();
-            $rol = Auth::user()->getRoleNames()->first();
-            
+            $UserData = [
+                'id' => $user->id,
+                'name' => $user->name,
+                'lastname' => $user->lastname,
+                'loginname' => $user->loginname,
+                'email' => $user->email,
+                'state_id' => $user->state_id,
+                'created_at' => $user->created_at,
+                'updated_at' => $user->updated_at,
+                'profile_photo_url' => $user->profile_photo_url,
+            ];
+            $rol = $user->getRoleNames()->first();
+            $permissions =  Auth::user()->getAllPermissions()->pluck('name');
+    
             return response()->json([
                 'status' => true,
-                'message' => 'El usuario inicio sesión',
-                'acces_token' => $user->createToken('authToken')->plainTextToken,
-                'user' => $user,
+                'message' => 'El usuario inició sesión',
+                'access_token' => $user->createToken('authToken')->plainTextToken,
+                'user' => $UserData,
+                'rol' => $rol,
+                'permissions' => $permissions,
             ], 200);
     
         } catch (\Throwable $th) {
@@ -59,6 +73,7 @@ class AuthController extends Controller
             ], 500);
         }
     }
+    
 
     public function register(Request $request)
     {
@@ -69,7 +84,7 @@ class AuthController extends Controller
                 'email' => 'required|unique:users',
                 'loginname' => 'required|unique:users',
                 'password' => 'required',
-                'state_id' => 'required',
+                //'state_id' => 'required',
             ]);
 
             if($validateUser->fails()){

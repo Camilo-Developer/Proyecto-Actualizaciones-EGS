@@ -186,5 +186,50 @@ class RolesSeeder extends Seeder
             'name' => 'admin.uptproorganizations.destroy',
             'description'=> 'Eliminación de la actualización de los projectos'
         ])->syncRoles([$role1]);
+
+
+         //Permisos de logsuptproorgs 
+         Permission::create([
+            'name' => 'admin.logsuptproorgs.index',
+            'description'=> 'Listado de Logs de la actualización del proyecto'
+        ])->syncRoles([$role1]);
+        Permission::create([
+            'name' => 'admin.logsuptproorgs.create',
+            'description'=> 'Creación del log de la actualización de los projectos'
+        ])->syncRoles([$role1]);
+        Permission::create([
+            'name' => 'admin.logsuptproorgs.edit',
+            'description'=> 'Edición del log de la actualización de los projectos'
+        ])->syncRoles([$role1]);
+        Permission::create([
+            'name' => 'admin.logsuptproorgs.show',
+            'description'=> 'Detalle del log de la actualización de los projectos'
+        ])->syncRoles([$role1]);
+        Permission::create([
+            'name' => 'admin.logsuptproorgs.destroy',
+            'description'=> 'Eliminación del log de la actualización de los projectos'
+        ])->syncRoles([$role1]);
+
+        //Permisos de usuarios 
+        Permission::create([
+            'name' => 'admin.users.index',
+            'description'=> 'Listado de usuarios'
+        ])->syncRoles([$role1]);
+        Permission::create([
+            'name' => 'admin.users.create',
+            'description'=> 'Creación del usuario'
+        ])->syncRoles([$role1]);
+        Permission::create([
+            'name' => 'admin.users.edit',
+            'description'=> 'Edición del usuario'
+        ])->syncRoles([$role1]);
+        Permission::create([
+            'name' => 'admin.users.show',
+            'description'=> 'Detalle del usuario'
+        ])->syncRoles([$role1]);
+        Permission::create([
+            'name' => 'admin.users.destroy',
+            'description'=> 'Eliminación del usuario'
+        ])->syncRoles([$role1]);
     }
 }

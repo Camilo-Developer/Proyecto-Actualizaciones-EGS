@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Api\Admin\Uptproorganizations;
+namespace App\Http\Requests\Api\Admin\Logsuptproorgs;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UptproorganizationsCreateRequest extends FormRequest
+class LogsuptproorgsCreateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,26 +23,25 @@ class UptproorganizationsCreateRequest extends FormRequest
     {
         return [
             'description' => 'required',
-            'user_id' => 'required',
-            'organization_id' => 'required',
-            'proyects' => 'required',
+            'uptproorganization_id' => 'required',
+            'proyect_id' => 'required',
         ];
     }
     public function attributes()
     {
         return [
             'description' => 'Descripción',
-            'user_id' => 'Usuario',
-            'organizations_id' => 'Organización',
+            'uptproorganization_id' => 'Actualizacion de projectos de la organización',
+            'proyect_id' => 'Proyecto',
         ];
     }
 
     public function messages()
     {
         return [
-            'description.required' => 'La descripción de la actualizacion es obligatoria',
-            'user_id.required' => 'El usuario es obligatorio',
-            'organizations_id.required' => 'La organización es obligatorio',
+            'description.required' => 'La descripción es obligatoria',
+            'uptproorganization_id.required' => 'La Actualizacion de projectos de la organización es obligatoria',
+            'proyect_id.required' => 'El proyecto es obligatorio',
         ];
     }
 }

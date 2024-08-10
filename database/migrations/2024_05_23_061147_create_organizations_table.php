@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('subdomain')->comment('Subdominio');
             $table->string('route')->comment('Ruta');
             $table->string('server')->comment('Servidor');
-            $table->longText('connection_db')->comment('Conexion Base de Datos');
+            $table->longText('connection_db')->nullable()->comment('Conexion Base de Datos');
             $table->timestamps();
         });
     }

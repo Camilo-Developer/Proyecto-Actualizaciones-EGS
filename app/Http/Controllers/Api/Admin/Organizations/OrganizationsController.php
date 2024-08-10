@@ -44,6 +44,18 @@ class OrganizationsController extends Controller implements HasMiddleware
         try{
             $organizations = Organization::create($request->all());
 
+            $projects = $request->input('projects');
+            $projectData = [];
+
+            foreach ($projects as $projectId) {
+                $projectData[$projectId] = [
+                    'created_at' => now(),
+                    'updated_at' => now()
+                ];
+            }
+
+            $organizations->proyects()->sync($projectData);
+
             return response()->json([
                 'status' => true,
                 'message' =>'La organización se creo correctamente',

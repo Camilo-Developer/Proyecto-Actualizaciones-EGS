@@ -40,12 +40,29 @@ class RolesController extends Controller implements HasMiddleware
         }
     }
 
+    public function create()
+    {
+        try{
+            $permissions = Permission::all();
+            return response()->json([
+                'status' => true,
+                'message' =>'Creación del rol',
+                'data' => $permissions,
+            ],200);
+        } catch(\Throwable $th){
+            return response()->json([
+                'status' => false,
+                'message' => $th->getMessage(),
+            ],500);
+        }
+    }
+
     public function store(Request $request)
     {
         try{
             $request->validate([
                 'name' => 'required',
-                'permissions' => 'required'
+                'permissions' => 'required|array'
             ]);
             $role = Role::create($request->all());
 
@@ -70,11 +87,39 @@ class RolesController extends Controller implements HasMiddleware
     {
         try{
             $permissions = Permission::all();
+            $permisosa = [];
+            foreach($role->permissions as $role_permission){
+                array_push($permisosa, $role_permission->pivot->permission_id);
+            }
             return response()->json([
                 'status' => true,
                 'message' =>'Detalle del rol',
                 'role' => $role,
-                'permissions' => $permissions,
+                'permissions' => $permisosa,
+            ],200);
+
+        } catch(\Throwable $th){
+            return response()->json([
+                'status' => false,
+                'message' => $th->getMessage(),
+            ],500);
+        }
+    }
+
+    public function edit(Role $role)
+    {
+        try{
+            $permissions = Permission::all();
+            $permisosId = [];
+            foreach($role->permissions as $role_permission){
+                array_push($permisosId, $role_permission->pivot->permission_id);
+            }
+            return response()->json([
+                'status' => true,
+                'message' =>'Edición del rol',
+                'role' => $role,
+                'permisosId' => $permisosId,
+                'data' => $permissions,
             ],200);
 
         } catch(\Throwable $th){

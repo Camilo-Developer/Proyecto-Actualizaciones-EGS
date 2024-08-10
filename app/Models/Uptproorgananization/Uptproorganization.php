@@ -2,6 +2,7 @@
 
 namespace App\Models\Uptproorgananization;
 
+use App\Models\LogsUptProOrg\Logsuptproorg;
 use App\Models\Organization\Organization;
 use App\Models\Proyect\Proyect;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -27,6 +28,11 @@ class Uptproorganization extends Model
 
     /*Relacion de muchos a muchos*/
     public function proyects(){
-        return $this->belongsToMany(Proyect::class);
+        return $this->belongsToMany(Proyect::class, 'uptproorganizations_has_proyects');
+    }
+
+    /*Relacion inversa Lista*/
+    public function logsuptproorgs(){
+        return $this->hasMany(Logsuptproorg::class);
     }
 }

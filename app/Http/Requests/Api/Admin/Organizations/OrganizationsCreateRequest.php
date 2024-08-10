@@ -27,6 +27,7 @@ class OrganizationsCreateRequest extends FormRequest
             'route' => 'required',
             'server' => 'required',
             'connection_db' => 'nullable',
+            'proyects' => 'nullable',
         ];
     }
     public function attributes()

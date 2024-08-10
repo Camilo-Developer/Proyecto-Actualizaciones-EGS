@@ -38,6 +38,11 @@ return new class extends Migration
             $table->foreign('uptproorganization_id')->references('id')->on('uptproorganizations')->onUpdate('cascade');
             $table->foreign('proyect_id')->references('id')->on('proyects')->onUpdate('cascade');
         });
+
+        Schema::table('logsuptproorgs', function ($table){
+            $table->foreign('uptproorganization_id')->references('id')->on('uptproorganizations')->onUpdate('cascade');
+            $table->foreign('proyect_id')->references('id')->on('proyects')->onUpdate('cascade');
+        });
     }
 
     /**

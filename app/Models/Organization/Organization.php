@@ -34,6 +34,6 @@ class Organization extends Model
 
      /*Relacion de muchos a muchos*/
      public function proyects(){
-        return $this->belongsToMany(Proyect::class);
+        return $this->belongsToMany(Proyect::class, 'organizations_has_proyects');
     }
 }

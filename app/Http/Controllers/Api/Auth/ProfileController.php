@@ -35,7 +35,6 @@ class ProfileController extends Controller
                 'lastname' => 'required',
                 'email' => 'required|email',
                 'loginname' => 'required',
-                'state_id' => 'required',
             ]);
     
             if($validateUser->fails()){
@@ -51,7 +50,7 @@ class ProfileController extends Controller
             $user->lastname = $request->lastname;
             $user->email = $request->email;
             $user->loginname = $request->loginname;
-            $user->state_id = $request->state_id;
+            $user->state_id = 1;
             $user->save();
     
             return response()->json([

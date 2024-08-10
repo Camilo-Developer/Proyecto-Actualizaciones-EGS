@@ -2,6 +2,7 @@
 
 namespace App\Models\Proyect;
 
+use App\Models\LogsUptProOrg\Logsuptproorg;
 use App\Models\Organization\Organization;
 use App\Models\Product\Product;
 use App\Models\Uptproorgananization\Uptproorganization;
@@ -26,11 +27,16 @@ class Proyect extends Model
 
      /*Relacion de muchos a muchos*/
      public function organizations(){
-        return $this->belongsToMany(Organization::class);
+        return $this->belongsToMany(Organization::class, 'organizations_has_proyects');
     }
 
     /*Relacion de muchos a muchos*/
     public function uptproorganizations(){
-        return $this->belongsToMany(Uptproorganization::class);
+        return $this->belongsToMany(Uptproorganization::class, 'uptproorganizations_has_proyects');
+    }
+
+    /*Relacion inversa Lista*/
+    public function logsuptproorgs(){
+        return $this->hasMany(Logsuptproorg::class);
     }
 }
