@@ -30,3 +30,4 @@ Route::post('profile/password-update',[ProfileController::class, 'passwordUpdate
  Route::resource('logsuptproorgs',LogsuptproorgsController::class);
  Route::resource('users',UsersController::class);
 
+ Route::get('export-excel', [ProyectsController::class, 'exportExcel']);
